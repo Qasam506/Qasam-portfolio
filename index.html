@@ -323,7 +323,7 @@ function getVideoEmbed(url) {
 }
 
 async function loadVideos() {
-  const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTtVcLdlF99nCtJIiuccPNI2QQ2kJNKyndZ5nIQaxJmAedNmPx9ertCJFLBoqnSrU2hLMHFn-NLIQjQ/pub?output=csv");
+  const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTtVcLdlF99nCtJIiuccPNI2QQ2kJNKyndZ5nIQaxJmAedNmPx9ertCJFLBoqnSrU2hLMHFn-NLIQjQ/pub?gid=0&single=true&output=csv);
   const text = await res.text();
   const data = csvToArray(text);
 
@@ -885,3 +885,4 @@ loadVideos();
 </body>
 
 </html>
+
