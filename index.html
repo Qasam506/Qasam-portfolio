@@ -281,22 +281,37 @@
                     </section>
 
                     <!-- ====================================== Section-Four ===================================== -->
+<section class="section-four active_menus" id="portfolio">
+  <h2 class="creative fade_down">Featured Projects</h2>
+  <h2 class="visionary fade_down">
+    My step-by-step guide ensures a smooth project journey, from the initial consultation to the final delivery.
+    I take care of every detail, allowing you to focus on what you do best.
+  </h2>
 
-                    <section class="section-four active_menus" id="portfolio">
-                        <h2 class="creative fade_down">Featured Projects</h2>
-                        <h2 class="visionary fade_down">My step-by-step guide ensures a smooth project journey, from the
-                            initial consultation to the final delivery. I take care of every detail, allowing you to
-                            focus on what you do best.</h2>
-                        <div class="tab-btn-main fade_down">
-                            <a href="javascript:void(0);" data-tab="one" class="aryaBtn tab-btn tab-active">Show All</a>
-                            <a href="javascript:void(0);" data-tab="two" class="aryaBtn tab-btn">Content</a>
-                            <a href="javascript:void(0);" data-tab="three" class="aryaBtn tab-btn">Gallery</a>
-                            <a href="javascript:void(0);" data-tab="four" class="aryaBtn tab-btn">YT Video</a>
-                            <a href="javascript:void(0);" data-tab="five" class="aryaBtn tab-btn">Vimeo Video</a>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="row grid" id="video-grid"></div>
-                           <script>
+  <div class="tab-btn-main fade_down">
+    <a href="javascript:void(0);" data-tab="one" class="aryaBtn tab-btn tab-active">Show All</a>
+    <a href="javascript:void(0);" data-tab="two" class="aryaBtn tab-btn">Content</a>
+    <a href="javascript:void(0);" data-tab="three" class="aryaBtn tab-btn">Gallery</a>
+    <a href="javascript:void(0);" data-tab="four" class="aryaBtn tab-btn">YT Video</a>
+    <a href="javascript:void(0);" data-tab="five" class="aryaBtn tab-btn">Vimeo Video</a>
+    <div class="clear"></div>
+  </div>
+
+  <div class="tabContainer">
+    <div id="two" class="Tabcondent tab-active">
+      <div class="gallery"></div>
+    </div>
+    <div id="three" class="Tabcondent">
+      <div class="gallery"></div>
+    </div>
+    <div id="four" class="Tabcondent">
+      <div class="gallery"></div>
+    </div>
+    <div id="five" class="Tabcondent">
+      <div class="gallery"></div>
+    </div>
+  </div>
+<script>
 function csvToArray(str) {
   const rows = str.trim().split('\n');
   const headers = rows.shift().split(',');
@@ -323,7 +338,7 @@ function getVideoEmbed(url) {
 }
 
 async function loadVideos() {
-  const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTtVcLdlF99nCtJIiuccPNI2QQ2kJNKyndZ5nIQaxJmAedNmPx9ertCJFLBoqnSrU2hLMHFn-NLIQjQ/pub?gid=0&single=true&output=csv);
+  const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTtVcLdlF99nCtJIiuccPNI2QQ2kJNKyndZ5nIQaxJmAedNmPx9ertCJFLBoqnSrU2hLMHFn-NLIQjQ/pub?gid=0&single=true&output=csv");
   const text = await res.text();
   const data = csvToArray(text);
 
@@ -356,9 +371,9 @@ async function loadVideos() {
     container.appendChild(item);
   });
 }
-
 loadVideos();
 </script>
+
 
                     	</section>
                     <!-- ====================================== Section-Five ===================================== -->
@@ -885,4 +900,5 @@ loadVideos();
 </body>
 
 </html>
+
 
