@@ -325,53 +325,35 @@ function csvToArray(str) {
 }
 
 function getVideoEmbed(url) {
-  if (url.includes("youtube.com")) {
-    const id = url.split("v=")[1]?.split("&")[0];
+  // YouTube
+  if (url.includes("youtube.com") || url.includes("youtu.be")) {
+    let id;
+    if (url.includes("youtu.be")) {
+      id = url.split("youtu.be/")[1].split("?")[0];
+    } else {
+      id = url.split("v=")[1]?.split("&")[0];
+    }
     return `<iframe src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>`;
-  } else if (url.includes("facebook.com")) {
-    return `<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}" frameborder="0" allowfullscreen></iframe>`;
-  } else if (url.includes("drive.google.com")) {
-    const id = url.match(/[-\\w]{25,}/);
-    return `<iframe src="https://drive.google.com/file/d/${id}/preview" frameborder="0" allowfullscreen></iframe>`;
   }
+
+  // Facebook
+  if (url.includes("facebook.com")) {
+    return `<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}" frameborder="0" allowfullscreen></iframe>`;
+  }
+
+  // Google Drive
+  if (url.includes("drive.google.com")) {
+    const match = url.match(/[-\w]{25,}/);
+    if (match) {
+      const fileId = match[0];
+      return `<iframe src="https://drive.google.com/file/d/${fileId}/preview" frameborder="0" allowfullscreen></iframe>`;
+    }
+  }
+
+  // Fallback
   return `<a href="${url}" target="_blank">View Video</a>`;
 }
 
-async function loadVideos() {
-  const res = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTtVcLdlF99nCtJIiuccPNI2QQ2kJNKyndZ5nIQaxJmAedNmPx9ertCJFLBoqnSrU2hLMHFn-NLIQjQ/pub?gid=0&single=true&output=csv");
-  const text = await res.text();
-  const data = csvToArray(text);
-
-  const galleryMap = {
-    "Content": "two",
-    "Gallery": "three",
-    "YT Video": "four",
-    "Vimeo Video": "five"
-  };
-
-  Object.entries(galleryMap).forEach(([category, tabId]) => {
-    const container = document.querySelector(`#${tabId} .gallery`);
-    if (container) container.innerHTML = '';
-  });
-
-  data.forEach(project => {
-    const tabId = galleryMap[project["Category"]];
-    const container = document.querySelector(`#${tabId} .gallery`);
-    if (!container) return;
-
-    const videoEmbed = getVideoEmbed(project["Video URL"]);
-    const item = document.createElement("div");
-    item.className = "gallery-item";
-    item.innerHTML = `
-      <div class="gallery-item-sub">
-        <div class="video-frame">${videoEmbed}</div>
-        <p class="overlay-text">${project["Project Name"]}</p>
-      </div>
-    `;
-    container.appendChild(item);
-  });
-}
-loadVideos();
 </script>
 
 
@@ -900,5 +882,6 @@ loadVideos();
 </body>
 
 </html>
+
 
 
